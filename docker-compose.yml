@@ -1,0 +1,15 @@
+services:
+  md-to-pdf:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./input:/data/input
+      - ./output:/data/output
+      - ./templates:/data/templates
+    environment:
+      - MARKDOWN_FILE=${MARKDOWN_FILE:-document.md}
+      - XSLT_FILE=${XSLT_FILE:-template.xsl}
+      - OUTPUT_FILE=${OUTPUT_FILE:-output.pdf}
+      - TEMP_DIR=/data/temp
+    command: "${MARKDOWN_FILE:-document.md} ${XSLT_FILE:-template.xsl} ${OUTPUT_FILE:-output.pdf}"
